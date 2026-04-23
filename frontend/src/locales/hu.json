@@ -1,0 +1,42 @@
+{
+  "nav": {
+    "home": "Főoldal",
+    "about": "Rólam",
+    "projects": "Projektek",
+    "contact": "Kapcsolat"
+  },
+  "hero": {
+    "title": "Üdvözlöm a portfóliómon!",
+    "subtitle": "Fejlesztő, tervező, alkotó.",
+    "cta": "Projektek megtekintése"
+  },
+  "about": {
+    "title": "Rólam",
+    "description": "Szenvedélyes szoftverfejlesztő vagyok, aki modern webalkalmazások készítésére specializálódott."
+  },
+  "projects": {
+    "title": "Projektek",
+    "noProjects": "Hamarosan projektek..."
+  },
+  "contact": {
+    "title": "Kapcsolat",
+    "name": "Név",
+    "email": "E-mail",
+    "subject": "Tárgy",
+    "message": "Üzenet",
+    "submit": "Küldés",
+    "success": "Üzenet sikeresen elküldve!",
+    "error": "Hiba történt, kérjük próbálja újra."
+  },
+  "footer": {
+    "rights": "Minden jog fenntartva."
+  },
+  "theme": {
+    "light": "Világos",
+    "dark": "Sötét"
+  },
+  "language": {
+    "hu": "Magyar",
+    "en": "English"
+  }
+}

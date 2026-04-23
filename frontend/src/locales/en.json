@@ -1,0 +1,42 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Welcome to my Portfolio!",
+    "subtitle": "Developer, designer, creator.",
+    "cta": "View Projects"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "I am a passionate software developer specializing in building modern web applications."
+  },
+  "projects": {
+    "title": "Projects",
+    "noProjects": "Projects coming soon..."
+  },
+  "contact": {
+    "title": "Contact",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "submit": "Send",
+    "success": "Message sent successfully!",
+    "error": "An error occurred, please try again."
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "language": {
+    "hu": "Magyar",
+    "en": "English"
+  }
+}
