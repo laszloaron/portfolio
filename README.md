@@ -1,0 +1,3 @@
+# Laszlo Aron - Fullstack Portfolio
+
+Ez a repó egy modern, fullstack portfólió webalkalmazás forráskódját tartalmazza monorepo struktúrában. A projekt elsődleges célja a fejlesztői tudás, korábbi munkák és referenciák letisztult, profi formában történő bemutatása. A rendszer frontendje React 18 és Vite 5 alapokon működik, míg a robusztus backendért Python 3.12 és FastAPI felel PostgreSQL adatbázissal, mindez teljes mértékben Dockerizált környezetbe csomagolva a könnyű fejleszthetőség és üzemeltetés érdekében.
