@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import api from '../lib/axios'
+import { useAuthStore } from '../store/useAuthStore'
 
 export default function ContactPage() {
   const { t } = useTranslation()
+  const { isAuthenticated, user } = useAuthStore()
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -17,7 +20,6 @@ export default function ContactPage() {
     const formData = new FormData(e.currentTarget)
     const data = {
       name: formData.get('name'),
-      email: formData.get('email'),
       subject: formData.get('subject'),
       message: formData.get('message'),
     }
@@ -41,14 +43,26 @@ export default function ContactPage() {
         transition={{ duration: 0.4 }}
       >
         <h1 className="mb-8 text-3xl font-bold">{t('contact.title')}</h1>
-        {submitted ? (
+        {!isAuthenticated ? (
+          <div className="rounded-md border border-border bg-card p-6 text-center shadow-sm">
+            <p className="mb-4 text-muted-foreground">
+              {t('contact.login_required', 'Kérjük, jelentkezz be az üzenetküldéshez. Ezzel tudjuk biztosítani, hogy a válasz jó helyre érkezzen.')}
+            </p>
+            <Link 
+              to="/login"
+              className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              {t('auth.login', 'Bejelentkezés')}
+            </Link>
+          </div>
+        ) : submitted ? (
           <p className="rounded-md bg-primary/10 p-4 text-primary">{t('contact.success')}</p>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
               <p className="rounded-md bg-destructive/10 p-4 text-destructive text-sm">{error}</p>
             )}
-            {(['name', 'email', 'subject'] as const).map((field) => (
+            {(['name', 'subject'] as const).map((field) => (
               <div key={field}>
                 <label className="mb-1 block text-sm font-medium text-foreground">
                   {t(`contact.${field}`)}
@@ -56,8 +70,9 @@ export default function ContactPage() {
                 <input
                   id={field}
                   name={field}
-                  type={field === 'email' ? 'email' : 'text'}
+                  type="text"
                   required
+                  defaultValue={field === 'name' ? (user?.full_name || user?.username || '') : ''}
                   className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 />
               </div>

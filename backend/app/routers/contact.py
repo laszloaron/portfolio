@@ -1,28 +1,30 @@
 import smtplib
 from email.message import EmailMessage
 import logging
-from fastapi import APIRouter, BackgroundTasks, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, HTTPException, status, Depends
 
 from app.schemas.contact import ContactMessage
 from app.core.config import settings
+from app.core.deps import get_current_active_user
+from app.models.models import User
 
 router = APIRouter(prefix="/contact", tags=["Contact"])
 logger = logging.getLogger(__name__)
 
-def send_email_sync(contact: ContactMessage):
+def send_email_sync(contact: ContactMessage, user_email: str):
     if not settings.SMTP_HOST or not settings.CONTACT_EMAIL:
         logger.warning("SMTP settings not configured. Contact message not sent via email.")
         # Alternatively, you could log the message here
-        logger.info(f"Received message from {contact.name} ({contact.email}): {contact.subject}\n{contact.message}")
+        logger.info(f"Received message from {contact.name} ({user_email}): {contact.subject}\n{contact.message}")
         return
 
     msg = EmailMessage()
-    msg.set_content(f"Name: {contact.name}\nEmail: {contact.email}\nSubject: {contact.subject}\n\nMessage:\n{contact.message}")
+    msg.set_content(f"Name: {contact.name}\nEmail: {user_email}\nSubject: {contact.subject}\n\nMessage:\n{contact.message}")
     
     msg['Subject'] = f"Portfolio Contact: {contact.subject}"
     msg['From'] = settings.SMTP_FROM_EMAIL
     msg['To'] = settings.CONTACT_EMAIL
-    msg['Reply-To'] = contact.email
+    msg['Reply-To'] = user_email
 
     try:
         if settings.SMTP_PORT == 465:
@@ -36,11 +38,15 @@ def send_email_sync(contact: ContactMessage):
             
         server.send_message(msg)
         server.quit()
-        logger.info(f"Successfully sent contact email from {contact.email}")
+        logger.info(f"Successfully sent contact email from {user_email}")
     except Exception as e:
         logger.error(f"Failed to send contact email: {e}")
 
 @router.post("", status_code=status.HTTP_202_ACCEPTED)
-async def submit_contact_form(contact: ContactMessage, background_tasks: BackgroundTasks):
-    background_tasks.add_task(send_email_sync, contact)
+async def submit_contact_form(
+    contact: ContactMessage, 
+    background_tasks: BackgroundTasks,
+    current_user: User = Depends(get_current_active_user)
+):
+    background_tasks.add_task(send_email_sync, contact, current_user.email)
     return {"message": "Message received and is being processed"}
