@@ -23,6 +23,14 @@ class Settings(BaseSettings):
     GITHUB_CLIENT_ID: str = ""
     GITHUB_CLIENT_SECRET: str = ""
 
+    # SMTP (Email)
+    SMTP_HOST: str = ""
+    SMTP_PORT: int = 587
+    SMTP_USER: str = ""
+    SMTP_PASSWORD: str = ""
+    SMTP_FROM_EMAIL: str = "noreply@example.com"
+    CONTACT_EMAIL: str = "" # The email address that will receive the contact form submissions
+
     # App
     ENVIRONMENT: str = "development"
     APP_NAME: str = "Portfolio API"

@@ -1,15 +1,36 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
+import api from '../lib/axios'
 
 export default function ContactPage() {
   const { t } = useTranslation()
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // TODO: wire up to backend API
-    setSubmitted(true)
+    setIsSubmitting(true)
+    setError(null)
+    
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      subject: formData.get('subject'),
+      message: formData.get('message'),
+    }
+
+    try {
+      await api.post('/api/v1/contact', data)
+      setSubmitted(true)
+    } catch (err) {
+      console.error('Failed to send message:', err)
+      setError(t('contact.error', 'Hiba történt az üzenet küldése során. Kérjük, próbálja újra később.'))
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -24,6 +45,9 @@ export default function ContactPage() {
           <p className="rounded-md bg-primary/10 p-4 text-primary">{t('contact.success')}</p>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <p className="rounded-md bg-destructive/10 p-4 text-destructive text-sm">{error}</p>
+            )}
             {(['name', 'email', 'subject'] as const).map((field) => (
               <div key={field}>
                 <label className="mb-1 block text-sm font-medium text-foreground">
@@ -31,6 +55,7 @@ export default function ContactPage() {
                 </label>
                 <input
                   id={field}
+                  name={field}
                   type={field === 'email' ? 'email' : 'text'}
                   required
                   className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
@@ -43,6 +68,7 @@ export default function ContactPage() {
               </label>
               <textarea
                 id="message"
+                name="message"
                 rows={5}
                 required
                 className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
@@ -50,9 +76,10 @@ export default function ContactPage() {
             </div>
             <button
               type="submit"
-              className="h-10 rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+              disabled={isSubmitting}
+              className="h-10 rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
             >
-              {t('contact.submit')}
+              {isSubmitting ? t('contact.submitting', 'Küldés...') : t('contact.submit')}
             </button>
           </form>
         )}
