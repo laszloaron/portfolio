@@ -11,20 +11,20 @@ from app.models.models import User
 router = APIRouter(prefix="/contact", tags=["Contact"])
 logger = logging.getLogger(__name__)
 
-def send_email_sync(contact: ContactMessage, user_email: str):
+def send_email_sync(contact: ContactMessage, user_email: str, user_name: str):
     if not settings.SMTP_HOST or not settings.CONTACT_EMAIL:
         logger.warning("SMTP settings not configured. Contact message not sent via email.")
         # Alternatively, you could log the message here
-        logger.info(f"Received message from {contact.name} ({user_email}): {contact.subject}\n{contact.message}")
+        logger.info(f"Received message from {user_name} ({user_email}): {contact.subject}\n{contact.message}")
         return
 
     msg = EmailMessage()
-    msg.set_content(f"Name: {contact.name}\nEmail: {user_email}\nSubject: {contact.subject}\n\nMessage:\n{contact.message}")
+    msg.set_content(f"Name: {user_name}\nEmail: {user_email}\nSubject: {contact.subject}\n\nMessage:\n{contact.message}")
     
     msg['Subject'] = f"Portfolio Contact: {contact.subject}"
     msg['From'] = settings.SMTP_FROM_EMAIL
     msg['To'] = settings.CONTACT_EMAIL
-    msg['Reply-To'] = user_email
+    msg['Reply-To'] = f"{user_name} <{user_email}>"
 
     try:
         if settings.SMTP_PORT == 465:
@@ -48,5 +48,6 @@ async def submit_contact_form(
     background_tasks: BackgroundTasks,
     current_user: User = Depends(get_current_active_user)
 ):
-    background_tasks.add_task(send_email_sync, contact, current_user.email)
+    user_name = current_user.full_name or current_user.username
+    background_tasks.add_task(send_email_sync, contact, current_user.email, user_name)
     return {"message": "Message received and is being processed"}

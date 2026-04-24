@@ -24,7 +24,7 @@ class UserRegister(BaseModel):
         max_length=128,
         description="Minimum 8 characters",
     )
-    full_name: str | None = Field(default=None, max_length=255)
+    full_name: str = Field(..., max_length=255)
 
     @field_validator("password")
     @classmethod

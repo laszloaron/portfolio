@@ -19,7 +19,6 @@ export default function ContactPage() {
     
     const formData = new FormData(e.currentTarget)
     const data = {
-      name: formData.get('name'),
       subject: formData.get('subject'),
       message: formData.get('message'),
     }
@@ -62,21 +61,25 @@ export default function ContactPage() {
             {error && (
               <p className="rounded-md bg-destructive/10 p-4 text-destructive text-sm">{error}</p>
             )}
-            {(['name', 'subject'] as const).map((field) => (
-              <div key={field}>
-                <label className="mb-1 block text-sm font-medium text-foreground">
-                  {t(`contact.${field}`)}
-                </label>
-                <input
-                  id={field}
-                  name={field}
-                  type="text"
-                  required
-                  defaultValue={field === 'name' ? (user?.full_name || user?.username || '') : ''}
-                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                />
-              </div>
-            ))}
+            
+            <div className="rounded-md bg-secondary/10 p-4 mb-4">
+              <p className="text-sm text-muted-foreground">
+                Üzenet küldése a következő néven: <span className="font-medium text-foreground">{user?.full_name || user?.username}</span> ({user?.email})
+              </p>
+            </div>
+
+            <div>
+              <label className="mb-1 block text-sm font-medium text-foreground">
+                {t('contact.subject', 'Tárgy')}
+              </label>
+              <input
+                id="subject"
+                name="subject"
+                type="text"
+                required
+                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+              />
+            </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-foreground">
                 {t('contact.message')}
