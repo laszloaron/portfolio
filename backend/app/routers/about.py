@@ -1,52 +1,37 @@
-from __future__ import annotations
-
 import os
-import uuid
+import shutil
 from pathlib import Path
-
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
+from typing import Annotated
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, status
 from fastapi.responses import FileResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.database import get_db
-from app.core.deps import get_current_superuser
-from app.crud import about as about_crud
+from app.database import get_db
 from app.models.models import User
+from app.routers.auth import get_current_superuser
 from app.schemas.about import AboutProfileOut, AboutProfileUpdate
+from app.crud import about as about_crud
 
-router = APIRouter(prefix="/about", tags=["about"])
+router = APIRouter()
 
+# Directory for profile photos
 UPLOAD_DIR = Path("/app/uploads/about")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
-ALLOWED_TYPES = {"image/jpeg", "image/png", "image/webp", "image/gif"}
-MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 MB
-
-
-# ─── Public ───────────────────────────────────────────────────────────────────
-
-@router.get("/", response_model=AboutProfileOut, summary="Get public about profile")
+@router.get("/", response_model=AboutProfileOut, summary="Get about profile information")
 async def get_about(db: AsyncSession = Depends(get_db)):
-    """Returns the portfolio owner's public about profile."""
+    """Fetch the site owner's profile info. Public access."""
     return await about_crud.get_profile(db)
 
-
-# ─── Admin only ───────────────────────────────────────────────────────────────
-
-@router.put(
-    "/",
-    response_model=AboutProfileOut,
-    summary="[Superuser] Update name and bio",
-)
+@router.put("/", response_model=AboutProfileOut, summary="[Superuser] Update profile text")
 async def update_about(
-    data: AboutProfileUpdate,
+    obj_in: AboutProfileUpdate,
     db: AsyncSession = Depends(get_db),
     _admin: User = Depends(get_current_superuser),
 ):
-    """Update the about section text. Superuser only."""
+    """Update name and bio. Superuser only."""
     profile = await about_crud.get_profile(db)
-    return await about_crud.update_profile(db, profile, data)
-
+    return await about_crud.update_profile(db, profile, obj_in)
 
 @router.post(
     "/photo",
@@ -58,37 +43,62 @@ async def upload_photo(
     db: AsyncSession = Depends(get_db),
     _admin: User = Depends(get_current_superuser),
 ):
-    """Upload / replace the profile photo. Superuser only. Max 5 MB."""
-    if file.content_type not in ALLOWED_TYPES:
+    """Upload or replace profile photo. Superuser only."""
+    # Validate file type
+    if file.content_type not in ["image/jpeg", "image/png", "image/webp", "image/gif"]:
         raise HTTPException(
-            status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
-            detail=f"Unsupported file type: {file.content_type}. Allowed: jpeg, png, webp, gif.",
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid image format. Use JPEG, PNG, WEBP or GIF."
         )
 
-    contents = await file.read()
-    if len(contents) > MAX_FILE_SIZE:
+    # Validate size (max 5MB)
+    file.file.seek(0, os.SEEK_END)
+    size = file.file.tell()
+    file.file.seek(0)
+    if size > 5 * 1024 * 1024:
         raise HTTPException(
-            status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
-            detail="File too large (max 5 MB).",
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="File too large. Maximum size is 5MB."
         )
 
-    ext = Path(file.filename or "photo.jpg").suffix.lower() or ".jpg"
-    filename = f"{uuid.uuid4().hex}{ext}"
-    dest = UPLOAD_DIR / filename
+    # Generate filename and save
+    ext = os.path.splitext(file.filename)[1]
+    filename = f"profile_photo{ext}"
+    file_path = UPLOAD_DIR / filename
+    
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
 
-    with open(dest, "wb") as f:
-        f.write(contents)
-
+    # Update DB
     photo_url = f"/api/v1/about/photo/{filename}"
     profile = await about_crud.get_profile(db)
     return await about_crud.update_photo(db, profile, photo_url)
 
 
+@router.delete(
+    "/photo",
+    response_model=AboutProfileOut,
+    summary="[Superuser] Delete profile photo",
+)
+async def delete_photo(
+    db: AsyncSession = Depends(get_db),
+    _admin: User = Depends(get_current_superuser),
+):
+    """Delete the profile photo. Superuser only."""
+    profile = await about_crud.get_profile(db)
+    # Optional: could delete the file from UPLOAD_DIR too, 
+    # but setting URL to None is sufficient for the MVP.
+    return await about_crud.update_photo(db, profile, None)
+
+
 @router.get("/photo/{filename}", summary="Serve uploaded profile photo", include_in_schema=False)
 async def serve_photo(filename: str):
     """Serve a previously uploaded profile photo."""
-    safe_name = Path(filename).name
-    path = UPLOAD_DIR / safe_name
-    if not path.exists():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Photo not found")
-    return FileResponse(str(path))
+    # Sanitise – only bare filename, no path traversal
+    safe_name = os.path.basename(filename)
+    file_path = UPLOAD_DIR / safe_name
+    
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="Photo not found")
+        
+    return FileResponse(file_path)
