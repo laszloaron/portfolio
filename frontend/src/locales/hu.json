@@ -1,53 +1,48 @@
 {
   "nav": {
-    "home": "Főoldal",
+    "home": "Kezdőlap",
     "about": "Rólam",
     "projects": "Projektek",
     "contact": "Kapcsolat"
   },
+  "home": {
+    "title": "Üdvözöllek a digitális világomban",
+    "subtitle": "Ismerd meg a projektjeimet, szakmai hátteremet, és építsünk valami maradandót együtt.",
+    "cta": "Projektek felfedezése",
+    "features": {
+      "projects": {
+        "title": "Projekt Galéria",
+        "desc": "Böngéssz a legújabb munkáim között, a full-stack alkalmazásoktól kezdve az innovatív kísérletekig."
+      },
+      "about": {
+        "title": "Szakmai Út",
+        "desc": "Tudj meg többet a tapasztalataimról, képességeimről és az útról, ami mérnökké formált."
+      },
+      "contact": {
+        "title": "Közvetlen Kapcsolat",
+        "desc": "Bejelentkezett felhasználóként közvetlenül elérhetsz az integrált kapcsolatfelvételi rendszeren keresztül."
+      }
+    },
+    "auth_info": {
+      "title": "Miért érdemes csatlakozni?",
+      "desc": "A regisztrációval hozzáférést kapsz a biztonságos kapcsolatfelvételi űrlaphoz, amely zökkenőmentes és hitelesített kommunikációt tesz lehetővé. Ez biztosítja, hogy minden üzeneted prioritást élvezzen."
+    }
+  },
   "hero": {
     "title": "Üdvözlöm a portfóliómon!",
     "subtitle": "Fejlesztő, tervező, alkotó.",
-    "cta": "Projektek megtekintése"
+    "cta": "Munkáim megtekintése"
   },
   "about": {
     "title": "Rólam",
-    "editSection": "Profil szerkesztése",
-    "name": "Név",
-    "bio": "Bemutatkozás",
-    "photo": "Profilkép",
-    "photoHint": "JPEG / PNG / WebP · max 5 MB",
+    "editSection": "Szerkesztés",
     "save": "Mentés",
-    "savePhoto": "Kép feltöltése",
-    "saving": "Mentés…",
-    "uploading": "Feltöltés…",
-    "saveSuccess": "Profil frissítve!",
-    "uploadSuccess": "Kép frissítve!",
-    "error": "Hiba történt. Kérjük, próbálja újra."
-  },
-  "projects": {
-    "title": "Projektek",
-    "noProjects": "Hamarosan projektek..."
-  },
-  "contact": {
-    "title": "Kapcsolat",
-    "name": "Név",
-    "email": "E-mail",
-    "subject": "Tárgy",
-    "message": "Üzenet",
-    "submit": "Küldés",
-    "success": "Üzenet sikeresen elküldve!",
-    "error": "Hiba történt, kérjük próbálja újra."
-  },
-  "footer": {
-    "rights": "Minden jog fenntartva."
-  },
-  "theme": {
-    "light": "Világos",
-    "dark": "Sötét"
-  },
-  "language": {
-    "hu": "Magyar",
-    "en": "English"
+    "saving": "Mentés...",
+    "saveSuccess": "Profil sikeresen frissítve!",
+    "error": "Hiba történt. Próbáld újra!",
+    "name": "Teljes név",
+    "bio": "Bemutatkozás",
+    "savePhoto": "Kép módosítása",
+    "uploadSuccess": "Fotó sikeresen frissítve!"
   }
 }
