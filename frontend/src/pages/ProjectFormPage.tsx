@@ -91,52 +91,52 @@ export default function ProjectFormPage() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-100 mb-1">Project Name *</label>
+            <label className="block text-sm font-semibold text-white mb-2">Project Name *</label>
             <input
               type="text"
               name="name"
               required
               value={formData.name}
               onChange={handleChange}
-              className="w-full rounded-lg border border-white/10 bg-black/20 p-3 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
-              placeholder="e.g. Awesome AI tool"
+              className="w-full rounded-xl border-2 border-white/20 bg-white p-4 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20 transition-all font-medium shadow-inner"
+              placeholder="e.g. My Amazing Portfolio"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-100 mb-1">Short Description *</label>
+            <label className="block text-sm font-semibold text-white mb-2">Short Description *</label>
             <input
               type="text"
               name="description"
               required
               value={formData.description}
               onChange={handleChange}
-              className="w-full rounded-lg border border-white/10 bg-black/20 p-3 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
-              placeholder="A brief summary of the project"
+              className="w-full rounded-xl border-2 border-white/20 bg-white p-4 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20 transition-all font-medium shadow-inner"
+              placeholder="What is this project about in one sentence?"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-100 mb-1">GitHub Link (Optional)</label>
+            <label className="block text-sm font-semibold text-white mb-2">GitHub Link (Optional)</label>
             <input
               type="url"
               name="github_link"
               value={formData.github_link}
               onChange={handleChange}
-              className="w-full rounded-lg border border-white/10 bg-black/20 p-3 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
-              placeholder="https://github.com/..."
+              className="w-full rounded-xl border-2 border-white/20 bg-white p-4 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20 transition-all font-medium shadow-inner"
+              placeholder="https://github.com/username/repo"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-100 mb-1">Detailed Documentation (Markdown)</label>
+            <label className="block text-sm font-semibold text-white mb-2">Detailed Documentation (Markdown)</label>
             <textarea
               name="documentation"
               value={formData.documentation}
               onChange={handleChange}
               rows={12}
-              className="w-full rounded-lg border border-white/10 bg-black/20 p-3 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all font-mono text-sm"
-              placeholder="# Project Details&#10;&#10;You can write markdown here, including images: ![alt](url)"
+              className="w-full rounded-xl border-2 border-white/20 bg-white p-4 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20 transition-all font-mono text-sm shadow-inner"
+              placeholder="# Use Markdown here...&#10;&#10;Explain the tech stack, features, and challenges."
             />
           </div>
 
