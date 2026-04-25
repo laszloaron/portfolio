@@ -39,3 +39,6 @@ backend/alembic/versions/__pycache__/
 
 # Docker
 *.log
+
+# Uploads
+backend/uploads/

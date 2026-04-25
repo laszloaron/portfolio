@@ -12,7 +12,18 @@
   },
   "about": {
     "title": "About Me",
-    "description": "I am a passionate software developer specializing in building modern web applications."
+    "editSection": "Edit Profile",
+    "name": "Name",
+    "bio": "Bio",
+    "photo": "Profile Photo",
+    "photoHint": "JPEG / PNG / WebP · max 5 MB",
+    "save": "Save changes",
+    "savePhoto": "Upload photo",
+    "saving": "Saving…",
+    "uploading": "Uploading…",
+    "saveSuccess": "Profile updated!",
+    "uploadSuccess": "Photo updated!",
+    "error": "Something went wrong. Please try again."
   },
   "projects": {
     "title": "Projects",

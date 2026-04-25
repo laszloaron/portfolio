@@ -12,7 +12,18 @@
   },
   "about": {
     "title": "Rólam",
-    "description": "Szenvedélyes szoftverfejlesztő vagyok, aki modern webalkalmazások készítésére specializálódott."
+    "editSection": "Profil szerkesztése",
+    "name": "Név",
+    "bio": "Bemutatkozás",
+    "photo": "Profilkép",
+    "photoHint": "JPEG / PNG / WebP · max 5 MB",
+    "save": "Mentés",
+    "savePhoto": "Kép feltöltése",
+    "saving": "Mentés…",
+    "uploading": "Feltöltés…",
+    "saveSuccess": "Profil frissítve!",
+    "uploadSuccess": "Kép frissítve!",
+    "error": "Hiba történt. Kérjük, próbálja újra."
   },
   "projects": {
     "title": "Projektek",
