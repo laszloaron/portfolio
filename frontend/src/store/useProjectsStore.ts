@@ -18,7 +18,7 @@ interface ProjectsState {
   error: string | null;
   fetchProjects: () => Promise<void>;
   fetchProject: (id: string) => Promise<void>;
-  createProject: (data: Partial<Project>) => Promise<boolean>;
+  createProject: (data: Partial<Project>) => Promise<Project | null>;
   updateProject: (id: string, data: Partial<Project>) => Promise<boolean>;
   deleteProject: (id: string) => Promise<boolean>;
 }
@@ -52,12 +52,12 @@ export const useProjectsStore = create<ProjectsState>((set, get) => ({
   createProject: async (data: Partial<Project>) => {
     set({ isLoading: true, error: null });
     try {
-      await api.post('/api/v1/projects/', data);
+      const response = await api.post('/api/v1/projects/', data);
       await get().fetchProjects();
-      return true;
+      return response.data;
     } catch (error: any) {
       set({ error: error.message, isLoading: false });
-      return false;
+      return null;
     }
   },
 

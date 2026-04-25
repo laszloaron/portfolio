@@ -35,6 +35,8 @@ services:
       ALGORITHM: ${ALGORITHM}
       ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES}
       ENVIRONMENT: ${ENVIRONMENT}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      CHAT_MODEL: ${CHAT_MODEL:-gpt-4o-mini}
     volumes:
       - ./backend:/app
     ports:

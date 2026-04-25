@@ -1,0 +1,10 @@
+/* AboutPage.css - Minimal overrides if needed */
+
+/* 
+   Az oldal most már elsősorban Tailwind osztályokat használ a ProjectFormPage-el való konzisztencia érdekében.
+   Ez a fájl üresen marad vagy csak speciális animációkat tartalmaz, ha szükséges.
+*/
+
+.about-page-container {
+  /* Itt maradhatnak egyedi stílusok, ha a Tailwind nem fedné le */
+}

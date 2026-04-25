@@ -5,6 +5,29 @@
     "projects": "Projektek",
     "contact": "Kapcsolat"
   },
+  "home": {
+    "title": "Üdvözöllek a digitális világomban",
+    "subtitle": "Ismerd meg a projektjeimet, szakmai hátteremet, és építsünk valami maradandót együtt.",
+    "cta": "Projektek felfedezése",
+    "features": {
+      "projects": {
+        "title": "Projekt Galéria",
+        "desc": "Böngéssz a legújabb munkáim között, a full-stack alkalmazásoktól kezdve az innovatív kísérletekig."
+      },
+      "about": {
+        "title": "Szakmai Út",
+        "desc": "Tudj meg többet a tapasztalataimról, képességeimről és az útról, ami mérnökké formált."
+      },
+      "contact": {
+        "title": "Közvetlen Kapcsolat",
+        "desc": "Bejelentkezett felhasználóként közvetlenül elérhetsz az integrált kapcsolatfelvételi rendszeren keresztül."
+      }
+    },
+    "auth_info": {
+      "title": "Miért érdemes csatlakozni?",
+      "desc": "A regisztrációval hozzáférést kapsz a biztonságos kapcsolatfelvételi űrlaphoz, amely zökkenőmentes és hitelesített kommunikációt tesz lehetővé. Ez biztosítja, hogy minden üzeneted prioritást élvezzen."
+    }
+  },
   "hero": {
     "title": "Üdvözlöm a portfóliómon!",
     "subtitle": "Fejlesztő, tervező, alkotó.",
@@ -12,7 +35,19 @@
   },
   "about": {
     "title": "Rólam",
-    "description": "Szenvedélyes szoftverfejlesztő vagyok, aki modern webalkalmazások készítésére specializálódott."
+    "editSection": "Profil szerkesztése",
+    "name": "Név",
+    "bio": "Bemutatkozás",
+    "photo": "Profilkép",
+    "photoHint": "JPEG / PNG / WebP · max 5 MB",
+    "save": "Mentés",
+    "savePhoto": "Kép feltöltése",
+    "saving": "Mentés…",
+    "uploading": "Feltöltés…",
+    "saveSuccess": "Profil frissítve!",
+    "uploadSuccess": "Kép frissítve!",
+    "talkToAI": "Beszélj az AI asszisztensemmel",
+    "error": "Hiba történt. Kérjük, próbálja újra."
   },
   "projects": {
     "title": "Projektek",
@@ -38,5 +73,23 @@
   "language": {
     "hu": "Magyar",
     "en": "English"
+  },
+  "chat": {
+    "title": "AI Asszisztens",
+    "subtitle": "Kérdezz bármit",
+    "placeholder": "Kérdezz bármit a portfólió tulajdonosáról...",
+    "welcome_title": "Szia! 👋",
+    "welcome_desc": "Egy AI asszisztens vagyok, aki el tud mesélni a portfólió tulajdonosáról, projektjeiről és képességeiről. Miben segíthetek?",
+    "clear": "Chat törlése",
+    "suggested": {
+      "about": "Mesélj magadról!",
+      "projects": "Milyen projektjeid vannak?",
+      "tech": "Milyen technológiákat használsz?",
+      "this_project": "Mesélj erről a projektről!",
+      "experience": "Milyen szakmai tapasztalataid vannak?"
+    },
+    "source_label": "Forrás",
+    "error": "Hiba történt. Kérjük, próbáld újra.",
+    "rate_limit": "Túl sok üzenet. Kérjük, várj egy kicsit."
   }
 }

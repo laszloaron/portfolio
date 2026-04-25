@@ -31,6 +31,12 @@ class Settings(BaseSettings):
     SMTP_FROM_EMAIL: str = "noreply@example.com"
     CONTACT_EMAIL: str = "" # The email address that will receive the contact form submissions
 
+    # AI Chatbot
+    OPENAI_API_KEY: str = ""
+    CHAT_MODEL: str = "gpt-4o-mini"
+    CHAT_MAX_HISTORY: int = 20
+    CHAT_RATE_LIMIT_PER_MIN: int = 20
+
     # App
     ENVIRONMENT: str = "development"
     APP_NAME: str = "Portfolio API"
