@@ -67,7 +67,7 @@ export default function ProjectDetailPage() {
         animate={{ opacity: 1, y: 0 }}
       >
         <div className="flex items-start justify-between flex-wrap gap-4">
-          <h1 className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
+          <h1 className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent pb-2 leading-tight">
             {project.name}
           </h1>
           
@@ -105,13 +105,13 @@ export default function ProjectDetailPage() {
           </div>
         </div>
 
-        <p className="mt-6 text-xl text-gray-300 leading-relaxed">
+        <p className="mt-6 text-xl text-gray-200 leading-relaxed">
           {project.description}
         </p>
 
         <div className="mt-12 pt-8 border-t border-white/10">
           {project.documentation ? (
-            <article className="prose prose-invert prose-blue max-w-none">
+            <article className="prose prose-invert prose-blue max-w-none prose-headings:text-white prose-h1:text-4xl prose-h2:text-3xl prose-a:text-blue-400 hover:prose-a:text-blue-300 prose-img:rounded-xl">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {project.documentation}
               </ReactMarkdown>

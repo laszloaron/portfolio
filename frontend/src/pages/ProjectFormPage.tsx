@@ -91,7 +91,7 @@ export default function ProjectFormPage() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">Project Name *</label>
+            <label className="block text-sm font-medium text-gray-100 mb-1">Project Name *</label>
             <input
               type="text"
               name="name"
@@ -104,7 +104,7 @@ export default function ProjectFormPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">Short Description *</label>
+            <label className="block text-sm font-medium text-gray-100 mb-1">Short Description *</label>
             <input
               type="text"
               name="description"
@@ -117,7 +117,7 @@ export default function ProjectFormPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">GitHub Link (Optional)</label>
+            <label className="block text-sm font-medium text-gray-100 mb-1">GitHub Link (Optional)</label>
             <input
               type="url"
               name="github_link"
@@ -129,7 +129,7 @@ export default function ProjectFormPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">Detailed Documentation (Markdown)</label>
+            <label className="block text-sm font-medium text-gray-100 mb-1">Detailed Documentation (Markdown)</label>
             <textarea
               name="documentation"
               value={formData.documentation}

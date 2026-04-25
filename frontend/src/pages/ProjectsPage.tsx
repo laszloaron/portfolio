@@ -25,10 +25,10 @@ export default function ProjectsPage() {
         className="flex items-center justify-between mb-12"
       >
         <div>
-          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent pb-1 leading-tight">
             {t('projects.title') || 'Projects'}
           </h1>
-          <p className="mt-2 text-muted-foreground text-lg">
+          <p className="mt-2 text-gray-300 text-lg">
             Explore some of the recent work and open source projects.
           </p>
         </div>
@@ -67,7 +67,7 @@ export default function ProjectsPage() {
                     <h3 className="mb-3 text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
                       {project.name}
                     </h3>
-                    <p className="text-gray-400 line-clamp-3 leading-relaxed">
+                    <p className="text-gray-300 line-clamp-3 leading-relaxed">
                       {project.description}
                     </p>
                   </div>
