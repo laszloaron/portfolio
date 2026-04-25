@@ -123,3 +123,15 @@ class Project(Base):
         onupdate=func.now(),
         nullable=False,
     )
+
+# ─── Skill ───────────────────────────────────────────────────────────────────
+class Skill(Base):
+    __tablename__ = "skills"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
+    category: Mapped[str] = mapped_column(String(100), nullable=False)  # e.g., "language", "framework", "tool"
+    proficiency: Mapped[int | None] = mapped_column(Integer, nullable=True)  # 1-5
+    created_at: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )

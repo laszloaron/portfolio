@@ -35,14 +35,61 @@
   },
   "about": {
     "title": "Rólam",
-    "editSection": "Szerkesztés",
-    "save": "Mentés",
-    "saving": "Mentés...",
-    "saveSuccess": "Profil sikeresen frissítve!",
-    "error": "Hiba történt. Próbáld újra!",
-    "name": "Teljes név",
+    "editSection": "Profil szerkesztése",
+    "name": "Név",
     "bio": "Bemutatkozás",
-    "savePhoto": "Kép módosítása",
-    "uploadSuccess": "Fotó sikeresen frissítve!"
+    "photo": "Profilkép",
+    "photoHint": "JPEG / PNG / WebP · max 5 MB",
+    "save": "Mentés",
+    "savePhoto": "Kép feltöltése",
+    "saving": "Mentés…",
+    "uploading": "Feltöltés…",
+    "saveSuccess": "Profil frissítve!",
+    "uploadSuccess": "Kép frissítve!",
+    "talkToAI": "Beszélj az AI asszisztensemmel",
+    "error": "Hiba történt. Kérjük, próbálja újra."
+  },
+  "projects": {
+    "title": "Projektek",
+    "noProjects": "Hamarosan projektek..."
+  },
+  "contact": {
+    "title": "Kapcsolat",
+    "name": "Név",
+    "email": "E-mail",
+    "subject": "Tárgy",
+    "message": "Üzenet",
+    "submit": "Küldés",
+    "success": "Üzenet sikeresen elküldve!",
+    "error": "Hiba történt, kérjük próbálja újra."
+  },
+  "footer": {
+    "rights": "Minden jog fenntartva."
+  },
+  "theme": {
+    "light": "Világos",
+    "dark": "Sötét"
+  },
+  "language": {
+    "hu": "Magyar",
+    "en": "English"
+  },
+  "chat": {
+    "title": "AI Asszisztens",
+    "subtitle": "Kérdezz bármit",
+    "placeholder": "Kérdezz bármit a portfólió tulajdonosáról...",
+    "welcome_title": "Szia! 👋",
+    "welcome_desc": "Egy AI asszisztens vagyok, aki el tud mesélni a portfólió tulajdonosáról, projektjeiről és képességeiről. Miben segíthetek?",
+    "clear": "Chat törlése",
+    "suggested": {
+      "about": "Mesélj magadról!",
+      "projects": "Milyen projektjeid vannak?",
+      "tech": "Milyen technológiákat használsz?",
+      "this_project": "Mesélj erről a projektről!",
+      "experience": "Milyen szakmai tapasztalataid vannak?"
+    },
+    "source_label": "Forrás",
+    "error": "Hiba történt. Kérjük, próbáld újra.",
+    "rate_limit": "Túl sok üzenet. Kérjük, várj egy kicsit."
   }
 }

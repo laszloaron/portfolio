@@ -35,14 +35,61 @@
   },
   "about": {
     "title": "About Me",
-    "editSection": "Edit Section",
-    "save": "Save Changes",
-    "saving": "Saving...",
-    "saveSuccess": "Profile updated successfully!",
-    "error": "An error occurred. Please try again.",
-    "name": "Full Name",
-    "bio": "Biography",
-    "savePhoto": "Change Photo",
-    "uploadSuccess": "Photo updated successfully!"
+    "editSection": "Edit Profile",
+    "name": "Name",
+    "bio": "Bio",
+    "photo": "Profile Photo",
+    "photoHint": "JPEG / PNG / WebP · max 5 MB",
+    "save": "Save changes",
+    "savePhoto": "Upload photo",
+    "saving": "Saving…",
+    "uploading": "Uploading…",
+    "saveSuccess": "Profile updated!",
+    "uploadSuccess": "Photo updated!",
+    "talkToAI": "Talk to my AI Assistant",
+    "error": "Something went wrong. Please try again."
+  },
+  "projects": {
+    "title": "Projects",
+    "noProjects": "Projects coming soon..."
+  },
+  "contact": {
+    "title": "Contact",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "submit": "Send",
+    "success": "Message sent successfully!",
+    "error": "An error occurred, please try again."
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "language": {
+    "hu": "Magyar",
+    "en": "English"
+  },
+  "chat": {
+    "title": "AI Assistant",
+    "subtitle": "Ask me anything",
+    "placeholder": "Ask me anything about the portfolio owner...",
+    "welcome_title": "Hello! 👋",
+    "welcome_desc": "I'm an AI assistant who can tell you about the portfolio owner, their projects, and skills. How can I help?",
+    "clear": "Clear chat",
+    "suggested": {
+      "about": "Tell me about yourself",
+      "projects": "What projects have you worked on?",
+      "tech": "What technologies do you use?",
+      "this_project": "Tell me about this project",
+      "experience": "What is your professional experience?"
+    },
+    "source_label": "Source",
+    "error": "Something went wrong. Please try again.",
+    "rate_limit": "Too many messages. Please wait a moment."
   }
 }

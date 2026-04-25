@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { Camera, Edit3, Save, X, CheckCircle, AlertCircle, User, Eye, Trash2, FileUp } from 'lucide-react'
+import { Camera, Edit3, Save, X, CheckCircle, AlertCircle, User, Eye, Trash2, FileUp, Bot } from 'lucide-react'
 import api from '@/lib/axios'
 import { useAuthStore } from '@/store/useAuthStore'
+import { useChatStore } from '@/store/useChatStore'
 import './AboutPage.css'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -29,9 +30,8 @@ function ToastBanner({ toast, onDismiss }: { toast: Toast; onDismiss: () => void
       initial={{ opacity: 0, y: -16 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -16 }}
-      className={`fixed top-20 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-2 px-4 py-3 rounded-xl shadow-2xl font-bold text-white ${
-        toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'
-      }`}
+      className={`fixed top-20 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-2 px-4 py-3 rounded-xl shadow-2xl font-bold text-white ${toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'
+        }`}
     >
       {toast.type === 'success' ? <CheckCircle size={18} /> : <AlertCircle size={18} />}
       <span>{toast.msg}</span>
@@ -153,7 +153,7 @@ export default function AboutPage() {
   const handleMarkdownImport = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
-    
+
     if (!file.name.endsWith('.md')) {
       setToast({ msg: "Please select a Markdown (.md) file.", type: 'error' })
       return
@@ -175,33 +175,53 @@ export default function AboutPage() {
     : null
 
   // ─── Shared Content Component ──────────────────────────────────────────────
-  const ProfileContent = ({ name, bio, isPlaceholder = false }: { name: string, bio: string, isPlaceholder?: boolean }) => (
-    <div className="space-y-6">
-      <h1 className="text-4xl md:text-5xl font-black text-blue-900 tracking-tight">
-        {isPlaceholder ? <div className="h-12 w-64 bg-blue-50 animate-pulse rounded-xl" /> : name}
-      </h1>
-      
-      <div className="h-1 w-20 bg-blue-600 rounded-full" />
+  const ProfileContent = ({ name, bio, isPlaceholder = false }: { name: string, bio: string, isPlaceholder?: boolean }) => {
+    const { openChat, sendMessage } = useChatStore()
 
-      <div className="prose prose-blue max-w-none 
-        prose-headings:text-blue-900 prose-headings:font-black
-        prose-p:text-blue-950 prose-p:leading-relaxed prose-p:text-lg
-        prose-strong:text-blue-900
-        prose-code:text-indigo-600 prose-code:bg-indigo-50 prose-code:px-1 prose-code:rounded">
-        {isPlaceholder ? (
-          <div className="space-y-4">
-            <div className="h-6 w-full bg-blue-50 animate-pulse rounded-lg" />
-            <div className="h-6 w-5/6 bg-blue-50 animate-pulse rounded-lg" />
-            <div className="h-6 w-4/6 bg-blue-50 animate-pulse rounded-lg" />
-          </div>
-        ) : (
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {bio || ""}
-          </ReactMarkdown>
-        )}
+    const handleAskAI = () => {
+      openChat()
+      // Optional: auto-send a message or just open it
+    }
+
+    return (
+      <div className="space-y-6">
+        <h1 className="text-4xl md:text-5xl font-black text-blue-900 tracking-tight">
+          {isPlaceholder ? <div className="h-12 w-64 bg-blue-50 animate-pulse rounded-xl" /> : name}
+        </h1>
+
+        <div className="flex flex-wrap items-center gap-4">
+          <div className="h-1 w-20 bg-blue-600 rounded-full" />
+          {!isPlaceholder && (
+            <button
+              onClick={handleAskAI}
+              className="flex items-center gap-2 text-xs font-bold text-blue-600 hover:text-blue-700 bg-blue-50 px-4 py-2 rounded-full transition-all border border-blue-100 shadow-sm hover:scale-105 active:scale-95"
+            >
+              <Bot size={16} />
+              {t('about.talkToAI')}
+            </button>
+          )}
+        </div>
+
+        <div className="prose prose-blue max-w-none 
+          prose-headings:text-blue-900 prose-headings:font-black
+          prose-p:text-blue-950 prose-p:leading-relaxed prose-p:text-lg
+          prose-strong:text-blue-900
+          prose-code:text-indigo-600 prose-code:bg-indigo-50 prose-code:px-1 prose-code:rounded">
+          {isPlaceholder ? (
+            <div className="space-y-4">
+              <div className="h-6 w-full bg-blue-50 animate-pulse rounded-lg" />
+              <div className="h-6 w-5/6 bg-blue-50 animate-pulse rounded-lg" />
+              <div className="h-6 w-4/6 bg-blue-50 animate-pulse rounded-lg" />
+            </div>
+          ) : (
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {bio || ""}
+            </ReactMarkdown>
+          )}
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
@@ -220,9 +240,9 @@ export default function AboutPage() {
         transition={{ duration: 0.5 }}
       >
         <div className="rounded-3xl border border-blue-100 bg-white p-8 sm:p-12 shadow-[0_40px_100px_rgba(0,0,0,0.08)]">
-          
+
           <div className="flex flex-col md:flex-row gap-12 items-start">
-            
+
             {/* ── Left Column: Photo & Actions ────────────────────────────────── */}
             <div className="flex flex-col items-center gap-6 shrink-0 mx-auto md:mx-0">
               <div className="relative group">
@@ -261,7 +281,7 @@ export default function AboutPage() {
                     </label>
 
                     {photoSrc && !uploading && (
-                      <button 
+                      <button
                         onClick={handleDeletePhoto}
                         className="hover:scale-110 transition-transform text-red-200 hover:text-red-400 flex flex-col items-center gap-1"
                         title="Delete Photo"
@@ -296,10 +316,10 @@ export default function AboutPage() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                   >
-                    <ProfileContent 
-                      name={profile?.name || ""} 
-                      bio={profile?.bio || ""} 
-                      isPlaceholder={loading} 
+                    <ProfileContent
+                      name={profile?.name || ""}
+                      bio={profile?.bio || ""}
+                      isPlaceholder={loading}
                     />
                   </motion.div>
                 ) : (

@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
-from app.routers import auth, health, users, contact, projects, about
+from app.routers import auth, health, users, contact, projects, about, chat
 
 # ─── App factory ──────────────────────────────────────────────────────────────
 app = FastAPI(
@@ -38,6 +38,7 @@ app.include_router(users.router, prefix=settings.API_V1_PREFIX)
 app.include_router(contact.router, prefix=settings.API_V1_PREFIX)
 app.include_router(projects.router, prefix=settings.API_V1_PREFIX)
 app.include_router(about.router, prefix=settings.API_V1_PREFIX)
+app.include_router(chat.router, prefix=settings.API_V1_PREFIX)
 
 @app.get("/")
 async def root() -> dict[str, str]:
